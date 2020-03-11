@@ -9,15 +9,20 @@
         <version>2.2.2.RELEASE</version>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>org.geektime</groupId>
     <artifactId>java-common-mistakes</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>java-common-mistakes</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>coding-concurrent-tools-web-thread-local</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR4</spring-cloud.version>
         <spring-data.version>Moore-SR4</spring-data.version>
+        <lombok.version>1.18.12</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -35,6 +40,13 @@
                 <version>${spring-data.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>compile</scope>
+                <optional>true</optional>
             </dependency>
         </dependencies>
     </dependencyManagement>
