@@ -17,10 +17,10 @@
 
 ##### Mistake usage
 
-Coding: [ThreadLocalMisuseController#wrong](./src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L27)
-Testing: [ThreadLocalMisuseControllerTest#wrong](./src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L27)
+Coding: [ThreadLocalMisuseController#wrong](./coding-concurrent-tools-web-thread-local/src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L27)
+Testing: [ThreadLocalMisuseControllerTest#wrong](./coding-concurrent-tools-web-thread-local/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L27)
 
 ##### Correct usage
 
-Coding: [ThreadLocalMisuseController#right](./src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L38)
-Testing: [ThreadLocalMisuseControllerTest#right](./src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L55)
+Coding: [ThreadLocalMisuseController#right](./coding-concurrent-tools-web-thread-local/src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L38)
+Testing: [ThreadLocalMisuseControllerTest#right](./coding-concurrent-tools-web-thread-local/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L55)
