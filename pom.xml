@@ -16,6 +16,7 @@
 
     <modules>
         <module>coding-concurrent-tools-web-thread-local</module>
+        <module>coding-concurrent-tools-concurrent-hash-map</module>
     </modules>
 
     <properties>
