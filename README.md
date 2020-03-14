@@ -138,3 +138,13 @@ Testing: [LockGranularity#wrong](./coding-lock/src/test/java/org/geektime/java/c
 * 正确示例
 
 Testing: [LockGranularity#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/LockGranularity.java#L55)
+
+#### 死锁问题
+
+* 错误示例
+
+Testing: [DeadLock#wrong](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/DeadLock.java#L81) 
+
+* 正确示例 顺序获取锁的方式解决死锁
+
+Testing: [DeadLock#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/DeadLock.java#L96)
