@@ -96,3 +96,33 @@ Testing: [CopyOnWriteArrayListPerformance#benchmarkRead](./coding-concurrent-too
 * putIfAbsent 总是要计算 value，而 computeIfAbsent 只会在 key 不存在时计算，对计算 value 比较昂贵的情景，这点要特别注意
 
 Testing: [ConcurrentHashMapPiaVsCia#test](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPiaVsCia.java#L35)
+
+### 代码加锁问题
+
+#### 锁定范围错误一
+
+对共享数据的非原子性的修改操作要上锁，对其读取过程通常也需要上锁，尤其是当将其作为竞态条件时一定读取也要加锁！
+
+* 错误示例
+
+Code: [Interesting#compare](./coding-lock/src/main/java/org/geektime/java/common/mistakes/coding/lock/Interesting.java#L33)
+Testing: [InterestingTest#wrong](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/InterestingTest.java#L18)
+
+* 正确示例
+
+Code: [Interesting#compareRight](./coding-lock/src/main/java/org/geektime/java/common/mistakes/coding/lock/Interesting.java#L48)
+Testing: [InterestingTest#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/InterestingTest.java#L40)
+
+#### 锁定范围错误二
+
+锁对象要与要锁定的资源切实对应。不要拿自家锁锁别家门。
+
+* 错误示例
+
+Code: [Data#addWrong](./coding-lock/src/main/java/org/geektime/java/common/mistakes/coding/lock/Data.java#L21)
+Testing: [DataTest#wrong](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/DataTest.java#L26)
+
+* 正确示例
+
+Code: [Data#addRight](./coding-lock/src/main/java/org/geektime/java/common/mistakes/coding/lock/Data.java#L34)
+Testing: [DataTest#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/DataTest.java#L34)
