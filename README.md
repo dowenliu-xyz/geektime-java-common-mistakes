@@ -15,12 +15,16 @@
 * 线程池会重用固定的几个线程，一旦线程重用，那么很可能首次从 ThreadLocal 获取的值是之前其他线程遗留的值。
 * 使用类似 ThreadLocal 工具来存放一些数据时，需要特别注意在代码运行完后，显式地去清空设置的数据。
 
-##### Mistake usage
+##### 场景
+
+使用 ThreadLocal 缓存请求业务过程中要使用的信息
+
+##### 错误用法
 
 Coding: [ThreadLocalMisuseController#wrong](./coding-concurrent-tools-web-thread-local/src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L27)
 Testing: [ThreadLocalMisuseControllerTest#wrong](./coding-concurrent-tools-web-thread-local/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L27)
 
-##### Correct usage
+##### 正确用法
 
 Coding: [ThreadLocalMisuseController#right](./coding-concurrent-tools-web-thread-local/src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L38)
 Testing: [ThreadLocalMisuseControllerTest#right](./coding-concurrent-tools-web-thread-local/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L55)
@@ -33,10 +37,35 @@ Testing: [ThreadLocalMisuseControllerTest#right](./coding-concurrent-tools-web-t
     * 诸如 size、isEmpty 和 containsValue 等聚合方法，在并发情况下可能会反映 ConcurrentHashMap 的中间状态。因此在并发情况下，这些方法的返回值只能用作参考，而不能用于流程控制。显然，利用 size 方法计算差异值，是一个流程控制。
     * 诸如 putAll 这样的聚合方法也不能确保原子性，在 putAll 的过程中去获取数据可能会获取到部分数据。
 
-##### Mistake usage
+##### 场景
+
+一个 ConcurrentHashMap 已有 900 条数据，需要将它填满到恰好 1000 条数据。10 个线程并发尝试进行填满操作。
+
+##### 错误用法
 
 Testing: [ConcurrentHashMapMisuse#wrong](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapMisuse.java#L43)
 
-##### Correct usage
+##### 正确用法
 
 Testing: [ConcurrentHashMapMisuse#right](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapMisuse.java#L63)
+
+#### 充分发挥 ConcurrentHashMap 性能
+
+* ConcurrentHashMap 的 computeIfAbsent 方法是原子性方法
+* 并发计数场景可以考虑 LongAdder
+
+##### 场景
+
+使用 Map 统计 Key 出现次数。Key的取值 0 ~ 9 。10 个线程并发计数。
+
+##### 正确但性能普通的写法
+
+Testing: [ConcurrentHashMapPerformance#normal](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPerformance.java#L41)
+
+##### 推荐写法
+
+Testing: [ConcurrentHashMapPerformance#good](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPerformance.java#L71)
+
+##### 两种写法性能对比
+
+Testing: [ConcurrentHashMapPerformance#benchmark](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPerformance.java#L94)
