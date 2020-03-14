@@ -88,3 +88,7 @@ Testing: [CopyOnWriteArrayListPerformance#benchmarkWrite](./coding-concurrent-to
 * 并发读性能对比
 
 Testing: [CopyOnWriteArrayListPerformance#benchmarkRead](./coding-concurrent-tools-copy-on-write-array-list/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/copy/on/write/array/list/CopyOnWriteArrayListPerformance.java#56)
+
+#### 比较 ConcurrentHashMap 的 putIfAbsent 和 computeIfAbsent 方法
+
+Testing: [ConcurrentHashMapPiaVsCia#test](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPiaVsCia.java#L35)
