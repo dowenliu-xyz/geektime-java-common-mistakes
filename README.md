@@ -91,4 +91,8 @@ Testing: [CopyOnWriteArrayListPerformance#benchmarkRead](./coding-concurrent-too
 
 #### 比较 ConcurrentHashMap 的 putIfAbsent 和 computeIfAbsent 方法
 
+* putIfAbsent 不允许设置为 null ，computeIfAbsent 计算结果允许为 null，但不会设置 KV 
+* 当 key 原本不存在、两者都成功设置 KV时，putIfAbsent 不会返回设置的值，而是返回 null ，要注意后续操作防止 NPE；computeIfAbsent 返回计算结果
+* putIfAbsent 总是要计算 value，而 computeIfAbsent 只会在 key 不存在时计算，对计算 value 比较昂贵的情景，这点要特别注意
+
 Testing: [ConcurrentHashMapPiaVsCia#test](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPiaVsCia.java#L35)

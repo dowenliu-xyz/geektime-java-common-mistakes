@@ -46,6 +46,7 @@ public class ConcurrentHashMapPiaVsCia {
         // null -> computeIfAbsent
         final String test2 = map.computeIfAbsent("test2", k -> null);
         assertThat(test2).isNull();
+        assertThat(map).doesNotContainKey("test2");
         log.info("ConcurrentHashMap#computeIfAbsent Function 参数如果计算结果为 null ，返回结果为: {}， key 也不会被加入", test2);
         // non-null -> putIfAbsent
         final String test3 = map.putIfAbsent("test3", "test3");
