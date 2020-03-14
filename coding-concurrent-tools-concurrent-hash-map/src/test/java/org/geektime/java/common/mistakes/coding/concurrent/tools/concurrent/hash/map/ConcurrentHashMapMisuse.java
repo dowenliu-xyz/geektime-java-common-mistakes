@@ -55,7 +55,7 @@ public class ConcurrentHashMapMisuse {
 
         final int finishSize = concurrentHashMap.size();
         log.info("finish size:{}", finishSize);
-        assertThat(finishSize).isGreaterThan(ITEM_COUNT);
+        assertThat(finishSize).isEqualTo(ITEM_COUNT);
         log.error("finish size [{}] is greeter than expected size [{}]", finishSize, ITEM_COUNT);
     }
 

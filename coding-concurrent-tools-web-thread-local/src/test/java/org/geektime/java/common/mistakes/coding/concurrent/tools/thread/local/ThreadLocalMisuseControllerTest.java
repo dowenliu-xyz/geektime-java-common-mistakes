@@ -25,7 +25,7 @@ public class ThreadLocalMisuseControllerTest {
 
     @Test
     public void wrong() throws Exception {
-        String wrongFirst = mvc.perform(
+        mvc.perform(
                 get("/thread-local/wrong")
                         .queryParam("userId", "1")
                         .accept(MediaType.APPLICATION_JSON)
@@ -35,20 +35,18 @@ public class ThreadLocalMisuseControllerTest {
                         jsonPath(".before").value("main:null"),
                         jsonPath(".after").value("main:1")
                 )
-        ).andReturn().getResponse().getContentAsString();
-        log.info("请求\"/thread-local/wrong?userId=1\"响应正确：{}", wrongFirst);
-        String wrongSecond = mvc.perform(
+        );
+        mvc.perform(
                 get("/thread-local/wrong")
                         .queryParam("userId", "2")
                         .accept(MediaType.APPLICATION_JSON)
         ).andExpect(
                 matchAll(
                         status().isOk(),
-                        jsonPath(".before").value("main:1"),
+                        jsonPath(".before").value("main:null"),
                         jsonPath(".after").value("main:2")
                 )
-        ).andReturn().getResponse().getContentAsString();
-        log.info("请求\"/thread-local/wrong?userId=2\"响应{{.before}}不正确，：{}", wrongSecond);
+        );
     }
 
     @Test
