@@ -126,3 +126,15 @@ Testing: [DataTest#wrong](./coding-lock/src/test/java/org/geektime/java/common/m
 
 Code: [Data#addRight](./coding-lock/src/main/java/org/geektime/java/common/mistakes/coding/lock/Data.java#L34)
 Testing: [DataTest#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/DataTest.java#L34)
+
+#### 加锁粒度不当
+
+要尽可能降低锁的粒度，仅对必要的代码块甚至是需要保护的资源本身加锁
+
+* 错误示例
+
+Testing: [LockGranularity#wrong](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/LockGranularity.java#L42)
+
+* 正确示例
+
+Testing: [LockGranularity#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/LockGranularity.java#L55)
