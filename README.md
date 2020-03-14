@@ -19,12 +19,12 @@
 
 使用 ThreadLocal 缓存请求业务过程中要使用的信息
 
-##### 错误用法
+* 错误用法
 
 Coding: [ThreadLocalMisuseController#wrong](./coding-concurrent-tools-web-thread-local/src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L27)
 Testing: [ThreadLocalMisuseControllerTest#wrong](./coding-concurrent-tools-web-thread-local/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L27)
 
-##### 正确用法
+* 正确用法
 
 Coding: [ThreadLocalMisuseController#right](./coding-concurrent-tools-web-thread-local/src/main/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseController.java#L38)
 Testing: [ThreadLocalMisuseControllerTest#right](./coding-concurrent-tools-web-thread-local/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/thread/local/ThreadLocalMisuseControllerTest.java#L55)
@@ -41,11 +41,11 @@ Testing: [ThreadLocalMisuseControllerTest#right](./coding-concurrent-tools-web-t
 
 一个 ConcurrentHashMap 已有 900 条数据，需要将它填满到恰好 1000 条数据。10 个线程并发尝试进行填满操作。
 
-##### 错误用法
+* 错误用法
 
 Testing: [ConcurrentHashMapMisuse#wrong](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapMisuse.java#L43)
 
-##### 正确用法
+* 正确用法
 
 Testing: [ConcurrentHashMapMisuse#right](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapMisuse.java#L63)
 
@@ -53,19 +53,38 @@ Testing: [ConcurrentHashMapMisuse#right](./coding-concurrent-tools-concurrent-ha
 
 * ConcurrentHashMap 的 computeIfAbsent 方法是原子性方法
 * 并发计数场景可以考虑 LongAdder
+* 像 ConcurrentHashMap 这样的高级并发工具的确提供了一些高级 API，只有充分了解其特性才能最大化其威力，而不能因为其足够高级、酷炫盲目使用。
 
 ##### 场景
 
 使用 Map 统计 Key 出现次数。Key的取值 0 ~ 9 。10 个线程并发计数。
 
-##### 正确但性能普通的写法
+* 正确但性能普通的写法
 
 Testing: [ConcurrentHashMapPerformance#normal](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPerformance.java#L41)
 
-##### 推荐写法
+* 推荐写法
 
 Testing: [ConcurrentHashMapPerformance#good](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPerformance.java#L71)
 
-##### 两种写法性能对比
+* 两种写法性能对比
 
 Testing: [ConcurrentHashMapPerformance#benchmark](./coding-concurrent-tools-concurrent-hash-map/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/concurrent/hash/map/ConcurrentHashMapPerformance.java#L94)
+
+#### 在频繁修改数据地场景下使用 CopyOnWriteArrayList 导致性能问题
+
+* 一般来说，针对通用场景的通用解决方案，在所有场景下性能都还可以，属于“万金油”；而针对特殊场景的特殊实现，会有比通用解决方案更高的性能，但一定要在它针对的场景下使用，否则可能会产生性能问题甚至是 Bug。
+* CopyOnWriteArrayLis 每次修改数据时都会复制一份数据出来，所以有明显的适用场景，即读多写少或者说希望无锁读的场景。
+* 工具/方案的选择一定要是因为场景需要而不是因为足够酷炫
+
+##### 场景
+
+比较并发读写时 CopyOnWriteArrayList 和通用方案 synchronized + ArrayList 的性能
+
+* 并发写性能对比
+
+Testing: [CopyOnWriteArrayListPerformance#benchmarkWrite](./coding-concurrent-tools-copy-on-write-array-list/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/copy/on/write/array/list/CopyOnWriteArrayListPerformance.java#31)
+
+* 并发读性能对比
+
+Testing: [CopyOnWriteArrayListPerformance#benchmarkRead](./coding-concurrent-tools-copy-on-write-array-list/src/test/java/org/geektime/java/common/mistakes/coding/concurrent/tools/copy/on/write/array/list/CopyOnWriteArrayListPerformance.java#56)
