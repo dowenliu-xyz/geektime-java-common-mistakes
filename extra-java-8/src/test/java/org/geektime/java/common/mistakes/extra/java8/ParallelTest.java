@@ -141,7 +141,7 @@ public class ParallelTest {
      * 使用公用 ForkJoinPool 执行
      */
     private int stream(int taskCount, int threadCount) {
-        // 设置公共 ForkJoinPool的并行度
+        // 设置公共 ForkJoinPool的并行度。必须在 ForkJoinPool 类加载前设置有有效，因为 common ForkJoinPool 的初始化在类初始化代码中
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", String.valueOf(threadCount));
         // 总操作次数计数器
         AtomicInteger atomicInteger = new AtomicInteger();
