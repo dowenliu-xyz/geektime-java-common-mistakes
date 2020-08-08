@@ -4,11 +4,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.0
  */
 @SpringBootTest(classes = DeadLock.class)
-@RunWith(SpringRunner.class)
 @Slf4j
 public class DeadLock {
     @Data
@@ -43,7 +41,7 @@ public class DeadLock {
 
     private final ConcurrentHashMap<String, Item> items = new ConcurrentHashMap<>();
 
-    @Before
+    @BeforeEach
     public void prepareData() {
         this.items.clear();
         IntStream.range(0, 10).forEach(i -> items.put("item" + i, new Item("item" + i)));
@@ -78,6 +76,7 @@ public class DeadLock {
     }
 
     @Test
+    @Disabled
     public void wrong() {
         long begin = System.currentTimeMillis();
         final long success = IntStream.rangeClosed(1, 100).parallel().mapToObj(i -> {

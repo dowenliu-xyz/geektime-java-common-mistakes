@@ -1,10 +1,8 @@
 package org.geektime.java.common.mistakes.coding.concurrent.tools.concurrent.hash.map;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StopWatch;
 
 import java.util.UUID;
@@ -20,7 +18,6 @@ import static org.assertj.core.api.Assertions.*;
  * @since 1.0
  */
 @SpringBootTest(classes = ConcurrentHashMapPiaVsCia.class)
-@RunWith(SpringRunner.class)
 @Slf4j
 public class ConcurrentHashMapPiaVsCia {
     private static String getDelayedValue() {

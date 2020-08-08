@@ -1,10 +1,8 @@
 package org.geektime.java.common.mistakes.coding.concurrent.tools.concurrent.hash.map;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,11 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.0
  */
 @SpringBootTest(classes = ConcurrentHashMapMisuse.class)
-@RunWith(SpringRunner.class)
 @Slf4j
 public class ConcurrentHashMapMisuse {
-    private static int THREAD_COUNT = 10;
-    private static int ITEM_COUNT = 1000;
+    private static final int THREAD_COUNT = 10;
+    private static final int ITEM_COUNT = 1000;
 
     private ConcurrentHashMap<String, Long> getData(int count) {
         return LongStream.rangeClosed(1, count)
