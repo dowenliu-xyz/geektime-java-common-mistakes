@@ -9,3 +9,4 @@
 * [Parallel 操作](./src/test/java/org/geektime/java/common/mistakes/extra/java8/ParallelTest.java)
 * [forEachOrdered](./src/test/java/org/geektime/java/common/mistakes/extra/java8/ForEachOrderedTest.java)
 * [生成/创建 Stream 的方式](./src/test/java/org/geektime/java/common/mistakes/extra/java8/GenerateStreamTest.java)
+* [Stream 操作](./src/test/java/org/geektime/java/common/mistakes/extra/java8/StreamDetailTest.java)
