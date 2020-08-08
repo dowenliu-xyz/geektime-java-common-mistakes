@@ -148,3 +148,7 @@ Testing: [DeadLock#wrong](./coding-lock/src/test/java/org/geektime/java/common/m
 * 正确示例 顺序获取锁的方式解决死锁
 
 Testing: [DeadLock#right](./coding-lock/src/test/java/org/geektime/java/common/mistakes/coding/lock/DeadLock.java#L96)
+
+## 加餐
+
+* [Java8](./extra-java-8/README.md)
